@@ -1,123 +1,174 @@
+#Store Mitra
 
-# 📦 Mee-KiranaM – A Grocery Store Restock & Sales Tracker
-
-A full-stack TypeScript app built for a **local grocery store owner** to track daily sales, expenses, and restocking in one place.
-
-This marks my **first real-world freelance gig**, designed and developed solo from scratch, tailored to the unique needs of the shop owner 
+**Store Mitra** is a smart, mobile-first inventory and sales management app built for small retail store owners in India. With built-in analytics, restocking insights, and ad monetization, Store Mitra acts as a pocket business partner — streamlining daily tasks while helping stores grow smarter.
 
 ---
 
-## 🚀 Features
+## ✨ Features
 
-- 📊 Daily sales, expenses, and restock entry
-- 📅 Date-wise report generation
-- 🔍 Real-time insights through APIs
-- 🌐 Frontend served by Vite + backend with Express
-- 🗃️ Data persistence via local JSON (to be upgraded to DB)
+### 🔐 User Authentication (via Firebase)
+- Email/password signup and login
+- Store name captured during account creation
+- Auth state routing — app only accessible after login
+- User profile saved in Firebase Firestore
+- Persistent cloud sync for each authenticated user
 
----
+### 📦 Inventory & Business Management
+- Add restock entries (unit and case based)
+- Auto-calculate total wholesale/retail/profit
+- View restock history in detailed cards
+- Manage expenses with breakdown
+- Sales tracking with revenue computation
+- Price list editable per product
+- Business reports: weekly/monthly/yearly profit stats
 
-## 💼 Project Background
+### 📊 Business Analytics
+- Smart dashboard showing:
+  - Today’s sales
+  - Expenses
+  - Net profit
+- Reports for trends over time
+- Future-ready for AI suggestions (coming soon)
 
-My client (a local business owner) was struggling with:
+### 📱 Mobile-Optimized UX
+- PWA-friendly responsive design
+- Capacitor-based Android APK support
+- Bottom navigation for mobile ease
 
-- Manual tracking of expenses & sales
-- Forgetting restock items and wholesale prices
-- Lack of visibility into daily profitability
-
-So I pitched a simple digital solution — and built this custom app.
-
-📝 **Note**: I treated this project like a paid gig — full requirement gathering, feedback loops, and iteration cycles. It taught me how to build *for* someone, not just for myself.
-
----
-
-## 📚 How It Started (A Dev Journey)
-
-> “Started from Replit, now we’re here.”
-
-1. **Idea Sparked**  
-   I wanted a simple way to track daily sales and expenses for my store. Pen and paper wasn’t cutting it.
-
-2. **Replit Days**  
-   - Built the prototype entirely on Replit.  
-   - It worked, but things got messy with too many files and limited control.
-
-3. **Migrated to Local Dev**  
-   - Shifted to local with Vite + Express setup for better performance and flexibility.  
-   - Learned `tsx`, `nanoid`, and how to handle API routing and file serving.
+### 💰 Ad Monetization (AdMob)
+- AdMob SDK integration
+- Banner ads show only on mobile devices
+- Test ads supported in dev mode
+- Error handling and fallback support
 
 ---
 
-## 🧩 Folder Structure
+## 🧰 Tech Stack
 
-```
-mee-kiranam/
-├── client/               # Frontend files (HTML, TS, assets)
-├── server/               # Express backend
-│   ├── index.ts          # API routes + main server
-│   └── vite.ts           # Custom Vite middleman for SSR-ish setup
-├── public/               # Static assets
-├── vite.config.ts        # Vite config
-├── package.json          
-├── package-lock.json     
-└── README.md             # This file
-```
+| Layer          | Technology                          |
+|----------------|-------------------------------------|
+| Frontend       | React + TypeScript + Vite           |
+| Routing        | Wouter (lightweight React router)   |
+| State/Query    | React Query (@tanstack/react-query) |
+| Backend        | Node.js + Express                   |
+| Mobile         | CapacitorJS (for Android builds)    |
+| Auth/DB        | Firebase Auth + Firestore           |
+| Ads            | Google AdMob (mobile banner ads)    |
+| Styling        | Tailwind CSS                        |
 
 ---
 
-## 🐛 Problems I Faced & Fixed using chatgpt
-
-| Problem | Fix |
-|--------|-----|
-| Replit was laggy with complex file structures | Migrated to local dev with Vite & Express |
-| Didn't understand folder structures | Learned by doing — now every piece has its place |
-| JSON storage not persisting correctly | Switched to writing/reading with `fs` correctly |
-| API not returning correct data | Debugged with `console.log` + used Postman |
-| CORS errors during Vite-Express integration | Created a custom Vite middleware |
-| Server logs cluttering terminal | Segregated logic with `log()` utility function |
-
+## 📁 Folder Structure (Client)
+client/
+├── public/
+├── src/
+│ ├── components/
+│ ├── pages/
+│ ├── hooks/
+│ ├── lib/
+│ ├── App.tsx
+│ ├── main.tsx
+│ └── index.css
+└── package.json
 ---
 
-## 📦 To-Do (WIP)
+## ⚙️ Setup Instructions
 
-- [ ] Add persistent database (e.g., MongoDB or SQLite)
-- [ ] Deploy on Render/Netlify combo
-- [ ] Add auth for multi-user tracking
-- [ ] Mobile-friendly UI
-- [ ] Export reports as PDF
-
----
-
-## 🧠 Lessons Learned
-
-- Learned practical DevOps stuff like running servers, port handling, and local debugging.
-- Understood the flow of a full-stack app — frontend sends → backend serves → frontend updates.
-- Git matters — broke the app twice, Git saved me.
-- Building for a real client (even family) forces you to think about usability, not just code.
-- Got a taste of client communication: gathering requirements, managing feature creep, and explaining trade-offs.
-
----
-
-## 🏁 How to Run Locally
-
+### 1. Clone the Repo
 ```bash
-git clone https://github.com/yourusername/mee-kiranam.git
-cd mee-kiranam
+git clone https://github.com/tabz79/StoreMitra.git
+cd StoreMitra
+2. Install Dependencies
+bash
+Copy code
+cd client
 npm install
-cd client # Or set up a proper build step
-npx tsx ../server/index.ts
-```
+3. Firebase Setup
+Create a Firebase project
 
-> Server runs at `localhost:5000`. Frontend served via Vite proxy or static.
+Enable Email/Password auth
+
+Create Firestore database
+
+Add your Firebase config in src/lib/firebase.ts
+
+ts
+Copy code
+// src/lib/firebase.ts
+export const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_APP.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  ...
+};
+4. Run the Dev Server
+bash
+Copy code
+npm run dev
+App runs at http://localhost:5000
+
+📦 Build & APK Generation (Android)
+Install Capacitor:
+
+bash
+Copy code
+npm install @capacitor/core @capacitor/cli
+npx cap init "Store Mitra" "com.yourdomain.storemitra"
+Add Android Platform:
+
+bash
+Copy code
+npx cap add android
+Sync and Open Android Studio:
+
+bash
+Copy code
+npm run build
+npx cap copy
+npx cap open android
+Build APK inside Android Studio.
+
+🔮 Roadmap
+ Firebase user auth
+
+ AdMob integration
+
+ LocalStorage sync
+
+ Cloud sync for inventory/sales data
+
+ AI-powered restock suggestions
+
+ Multi-store management
+
+ Dark mode toggle
+
+ Language localization (Hindi, Telugu, etc.)
+
+🙏 Acknowledgements
+Firebase
+
+React Query
+
+CapacitorJS
+
+Vite
+
+Tailwind CSS
+
+Google AdMob
+
+📬 Contact
+Built with ❤️ by @tabz79
+
+DM for collaborations, contributions, or feature requests.
+
+yaml
+Copy code
 
 ---
 
-## 🙏 Special Thanks
-
-To ChatGPT for being the coding rubber duck and my own persistence.
-
----
-
-## 📜 License
-
-MIT — use it, tweak it, improve it.
+Let me know if you'd like me to:
+- Split into multiple sections like CONTRIBUTING.md or INSTALL.md
+- Add screenshots or GIFs
+- Include environment variable example file (e.g., `.env.example`)
